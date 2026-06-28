@@ -4,8 +4,8 @@ This document tracks the current state, architectural decisions, and user prefer
 
 ## 🌟 Project Vision
 The repository is a **"Developer OS"** or **"Knowledge as Code"** hub. It contains:
-- **rules/rules-library**: Rules for LLMs to ensure code consistency.
-- **rules/project-template**: A starter kit for new microservices.
+- **rules-library**: Rules for LLMs to ensure code consistency.
+- **project-template**: A starter kit for new microservices.
 - **FrostWillmott**: GitHub profile templates.
 - **Startpages**: Personal browser landing pages.
 
@@ -21,7 +21,7 @@ The repository is a **"Developer OS"** or **"Knowledge as Code"** hub. It contai
 ## 🏗️ Architectural Decisions (June 2026)
 - **VS Code Retirement**: All VS Code specific configurations (`VSC IDE`, `user_settings.json`) moved to `archive/`.
 - **Root README**: Established as the entry point explaining the "Developer OS" concept.
-- **Rules Centralization**: AI rules are stored in `rules/rules-library/`. Use these for any code generation.
+- **Rules Centralization**: AI rules are stored in `rules-library/`. Use these for any code generation.
 - **Clean Architecture**: Dependencies must always point inward (Infrastructure -> Adapters -> Use Cases -> Domain).
 
 ## 📜 Interaction Rules & Workflow

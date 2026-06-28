@@ -8,7 +8,7 @@ A single source of truth for code conventions, agent rules, and project scaffold
 ## Structure
 
 ```
-rules/
+templates/
 ├── project-template/    ← copy this into a new repo
 │   ├── .claude/rules/   ← drop rule modules here
 │   ├── CLAUDE.md
@@ -26,9 +26,9 @@ rules/
 
 ### Starting a new project
 
-1. Copy `rules/project-template/` into the new repo root.
+1. Copy `project-template/` into the new repo root.
 2. Fill in `CLAUDE.md`: project description, active modules, architecture divergences, commands.
-3. Copy the rule modules you need from `rules/rules-library/` into `.claude/rules/`.
+3. Copy the rule modules you need from `rules-library/` into `.claude/rules/`.
 4. Run `make install && make install-hooks`.
 
 ### One-time machine setup
