@@ -1,0 +1,10 @@
+Copy the modules this project needs from your rules-library into this directory.
+They load automatically alongside CLAUDE.md — no import line needed.
+
+Example for a FastAPI + LLM service:
+    python-core.md
+    backend-fastapi.md
+    ai-engineering.md
+    workflow-scaffolding.md
+
+Then delete this file.

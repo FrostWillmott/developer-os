@@ -1,0 +1,7 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.1  # run `pre-commit autoupdate` after copying to a project
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format

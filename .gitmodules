@@ -1,0 +1,7 @@
+[submodule "FrostWillmott"]
+	path = FrostWillmott
+	url = git@github.com:FrostWillmott/FrostWillmott.git
+
+[submodule "devs_startpage"]
+	path = devs_startpage
+	url = git@github.com:FrostWillmott/developer-start-page.git
