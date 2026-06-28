@@ -1,34 +1,52 @@
-# PostgreSQL & pgvector Rules
+# PostgreSQL & pgvector conventions
 
-Guidelines for working with vector databases and relational data in a Python/FastAPI environment using SQLAlchemy and pgvector.
+Apply to projects using pgvector for vector similarity search. Assumes `python-core.md`.
+Rule levels are defined in `_LEVELS.md`.
 
-## Configuration & Schema
-- Use the `pgvector` extension.
-- Define vector columns with explicit dimensions: `Vector(1536)` (for OpenAI) or `Vector(768)` (for HuggingFace).
-- Always use `Mapped` and `mapped_column` for SQLAlchemy 2.0+ models.
-- Prefer `Float` or `Double` for vector components depending on precision requirements.
+## Schema  [MUST]
+- Use the `pgvector` extension (`CREATE EXTENSION IF NOT EXISTS vector`).
+- Define vector columns with `Vector(dim)` where `dim` comes from the embedding
+  model's config, never hardcoded as a magic number. A mismatch between the
+  stored index and the model silently corrupts search results, not an error.
+- Use `Mapped` and `mapped_column` for SQLAlchemy 2.0+ models.
 
-## Indexing (Performance)
-- **HNSW (Hierarchical Navigable Small World):** Use for high search speed and good recall. 
-  - Standard for most production use cases.
-  - Requires more RAM than IVFFlat.
-  - Example: `Index("idx_embedding", VectorColumn, postgresql_using="hnsw", postgresql_with={"m": 16, "ef_construction": 64}, postgresql_ops={"embedding": "vector_cosine_ops"})`.
-- **IVFFlat:** Use for very large datasets if RAM is constrained.
-  - Requires training (lists calculation).
-- Always specify the distance operator in the index (e.g., `vector_cosine_ops`, `vector_l2_ops`, `vector_ip_ops`).
+## Indexing  [MUST-UNLESS]
+Build an ANN index before running similarity queries on more than a few thousand
+rows — without one every query is a full table scan.
 
-## Queries & Distance Metrics
-- **Cosine Distance (`<=>`):** Use for semantic similarity (most common).
-- **L2 Distance (`<->`):** Use for Euclidean distance.
-- **Inner Product (`<#> `):** Use if vectors are normalized.
-- Always implement pagination for vector search results.
-- Limit the number of returned neighbors (e.g., `limit(10)` or `limit(50)`).
+- **HNSW** is the default for production: high recall, fast queries, higher RAM.
+  ```python
+  Index("idx_embedding", Model.embedding,
+        postgresql_using="hnsw",
+        postgresql_with={"m": 16, "ef_construction": 64},
+        postgresql_ops={"embedding": "vector_cosine_ops"})
+  ```
+  `m=16, ef_construction=64` are reasonable starting points; tune under load.
+- **IVFFlat** — lower RAM, slower to build, needs `ANALYZE` after population.
+  Use only when HNSW RAM requirements are prohibitive.
+- The distance operator in the index (`vector_cosine_ops`, `vector_l2_ops`,
+  `vector_ip_ops`) must match the operator used in queries — a mismatch causes
+  a silent full scan.
 
-## Clean Architecture Integration
-- Keep raw vector math and distance logic in the **Infrastructure** layer (Repository implementation).
-- The **Domain** layer should work with high-level entities and should not know about pgvector-specific operators.
-- Use DTOs to pass vectors if needed, but avoid exposing raw `numpy` arrays or large lists in the **Use Cases** layer unless necessary.
+## Distance metrics  [MUST]
+Match the metric to how the model was trained:
+- `<=>` cosine distance — semantic similarity (most embedding models).
+- `<->` L2 / Euclidean — spatial distance.
+- `<#>` inner product — only when vectors are pre-normalized.
 
-## Validation
-- Verify vector dimensions before insertion.
-- Ensure the database user has the `vector` extension enabled.
+Always paginate results and set a hard `limit()` — unbounded neighbor queries
+are a latency and memory hazard.
+
+## Queries  [MUST]
+- Parameterized queries only — never format values into SQL strings.
+- Keep vector distance logic in the infrastructure/repository layer. Domain and
+  use-case layers work with entities and IDs, not raw distance scores or arrays.
+- In a 3-layer setup (no full Clean Architecture), keep distance queries in a
+  dedicated repository module, not scattered across services.
+
+## Validation  [MUST]
+- Check embedding dimensions match the column before insertion — a silent
+  mismatch produces wrong results without raising an exception.
+- Verify the `vector` extension is enabled before running migrations.
+- Confirm the query operator matches the index operator; a mismatch causes a
+  full sequential scan with no warning.

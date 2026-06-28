@@ -73,8 +73,13 @@ Read `_LEVELS.md` first; it tells the agent how much latitude each rule carries.
 - `ai-engineering.md` — LLM integration patterns (structured outputs, async
   calls, prompt/context handling).
 - `clean-architecture.md` — full layered architecture. Apply ONLY to projects
-  that want it; many of yours deliberately use a simpler 3-layer split.
-- `workflow-scaffolding.md` — the "set up verification obvious at project start"
+  that want it; many projects are fine with the lighter 3-layer split in
+  `backend-fastapi.md`.
+- `postgresql-pgvector.md` — pgvector schema, indexing, distance metrics and
+  query patterns.
+- `testing.md` — pytest conventions: structure, assertions, fixtures, mocking,
+  async tests, coverage.
+- `workflow-scaffolding.md` — the "set up verification at project start"
   meta-instruction (pre-commit / task runner / CI). Action-on-start, not
   standing behaviour, which is why it's a module not global.
 

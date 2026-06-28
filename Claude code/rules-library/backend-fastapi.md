@@ -32,14 +32,14 @@ Apply when the project is a FastAPI service. Assumes `python-core.md` is also pr
 ## Migrations
 - Alembic. Autogenerate, then review the migration by hand before applying.
 
-## Repeated long-lived services  [PREFER]
-If two services end up near-identical (e.g. two APScheduler-backed singletons
-sharing job-loading, active-hours/cron parsing, run-tracking), extract a shared
-base rather than copying. Two is the warning sign; before a third copy, refactor.
-Different trigger types (cron vs interval) justify subclasses, not duplication.
+## Don't duplicate services  [PREFER]
+If two service classes are near-identical in structure (shared lifecycle,
+initialization, error-handling patterns), extract a shared base before writing
+a third. Two is the warning sign; different config or trigger types justify
+subclasses, not separate copies.
 
-## Throwaway scaffolding is not a pattern  [PREFER]
-Code that fights an external platform's policy (User-Agent rotation, cookie
-warm-up, anti-bot evasion) has a built-in expiry date — a platform change can
-kill it (and the project) overnight. Keep it isolated, mark it as deliberately
-fragile, and don't generalise it into a reusable abstraction.
+## Isolate fragile external integrations  [PREFER]
+Code that depends on undocumented or unofficial behavior of an external platform
+has a built-in expiry date — a platform change can break it overnight. Keep it
+isolated, mark it as deliberately fragile, and don't generalize it into a shared
+abstraction that other code depends on.
