@@ -4,8 +4,8 @@ This document tracks the current state, architectural decisions, and user prefer
 
 ## 🌟 Project Vision
 The repository is a **"Developer OS"** or **"Knowledge as Code"** hub. It contains:
-- **Claude code/rules-library**: Rules for LLMs to ensure code consistency.
-- **Claude code/project-template**: A starter kit for new microservices.
+- **rules/rules-library**: Rules for LLMs to ensure code consistency.
+- **rules/project-template**: A starter kit for new microservices.
 - **FrostWillmott**: GitHub profile templates.
 - **Startpages**: Personal browser landing pages.
 
