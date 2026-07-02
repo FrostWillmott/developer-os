@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --all-extras
+      - name: Lint + type + test
+        run: make check
+
+  # Add a `services:` job here (Postgres, Redis, ...) if the project needs a
+  # real backing service in CI — see any project using this template for an
+  # example rather than adding one speculatively.
