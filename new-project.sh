@@ -55,6 +55,7 @@ fi
 mkdir -p "$TARGET_DIR"
 
 # Copy project-template/. into TARGET_DIR without clobbering existing files.
+# Skip editor/tool junk that isn't part of the template proper.
 while IFS= read -r -d '' src; do
   rel="${src#"$TEMPLATE_DIR"/}"
   dest="$TARGET_DIR/$rel"
@@ -64,7 +65,12 @@ while IFS= read -r -d '' src; do
   fi
   mkdir -p "$(dirname "$dest")"
   cp "$src" "$dest"
-done < <(find "$TEMPLATE_DIR" -type f -print0)
+done < <(find "$TEMPLATE_DIR" -type f \
+  -not -name ".DS_Store" \
+  -not -path "*/.ruff_cache/*" \
+  -not -path "*/.mypy_cache/*" \
+  -not -path "*/__pycache__/*" \
+  -print0)
 
 mkdir -p "$TARGET_DIR/.claude/rules"
 
