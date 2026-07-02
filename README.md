@@ -41,13 +41,6 @@ templates/
 ./new-project.sh --list                      # see available modules
 ```
 
-Then in `<target-dir>`: fill in the `CLAUDE.md` TODOs, review `.github/workflows/ci.yml`,
-and run `make install && make install-hooks`.
-
-Manual fallback (what the script automates): copy `project-template/` into the repo root,
-copy the rule modules you need from `rules-library/` into `.claude/rules/`, delete
-`_PUT_MODULES_HERE.txt`, then `make install && make install-hooks`.
-
 ### One-time machine setup
 
 Put `~/.claude/CLAUDE.md` with global agent behaviour (behavioural boundaries, comment
@@ -57,9 +50,9 @@ import line needed.
 Verify auto-load once: drop a module with a distinctive rule into a test repo's
 `.claude/rules/`, start a session, and ask the agent to state the rule.
 
-See **[docs/harness-guide.md](docs/harness-guide.md)** for a full guide on building the
-optimal harness: enforcement hierarchy, static vs. on-demand context, hooks, and
-day-to-day workflow.
+See **[docs/harness-guide.md](docs/harness-guide.md)** for the full guide: enforcement
+hierarchy, context layers, project setup detail and manual fallback, the dual-review
+protocol, the provider switcher, and day-to-day workflow.
 
 ---
 
