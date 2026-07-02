@@ -131,6 +131,9 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
+# Claude Code — personal per-project overrides, never shared
+CLAUDE.local.md
+
 # Environments
 infra/.env
 .venv

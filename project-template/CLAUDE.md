@@ -14,7 +14,8 @@ PostgreSQL, Alembic, Docker. Package manager: uv.
 
 ## Active rule modules
 <!-- List which .claude/rules/ modules apply, so it's visible at a glance. -->
-TODO: e.g. python-core, backend-fastapi, ai-engineering.
+<!-- documentation.md is on by default (README.md + DECISIONS.md upkeep) unless removed here. -->
+TODO: e.g. python-core, backend-fastapi, ai-engineering, documentation.
 
 ## Architecture divergences
 <!--
@@ -34,9 +35,8 @@ make test      # TODO
 ```
 
 ## Key design decisions
-<!-- Non-obvious choices an agent would otherwise re-litigate. The high-value part. -->
-- TODO: e.g. cycle detection via BFS over descendants before reparenting.
-- TODO: e.g. unique name scoped per parent_id, enforced in service layer.
+<!-- Full log lives in DECISIONS.md (see documentation.md); keep this as a short pointer, not a duplicate. -->
+See [`DECISIONS.md`](DECISIONS.md) for the full, dated log.
 
 ## Git
 - Do not add AI-tool references, co-author lines, or "generated with" notes to

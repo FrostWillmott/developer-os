@@ -5,6 +5,18 @@ Example for a FastAPI + LLM service:
     python-core.md
     backend-fastapi.md
     ai-engineering.md
-    workflow-scaffolding.md
 
 Then delete this file.
+
+---
+
+For procedural/one-time instructions (project setup, deployment steps), use Skills instead
+of Rules — they load on demand rather than every session:
+
+    .claude/skills/<skill-name>/SKILL.md
+
+The workflow-scaffolding skill is already included in this template at:
+    .claude/skills/workflow-scaffolding/SKILL.md
+
+Rules with paths: frontmatter load only when Claude works with matching files.
+See workflow-scaffolding.md in rules-library for examples.

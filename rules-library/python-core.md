@@ -4,7 +4,7 @@ The mechanical half (line length, import order, quote style) is enforced by
 `ruff.toml` — not restated here. This file covers what the linter does NOT
 catch but agents get wrong by default.
 
-## Type hints
+## Type hints  [MUST]
 - Annotate every function signature, including return types.
 - Modern syntax: `X | None` not `Optional[X]`; `list[str]` not `List[str]`;
   `dict[str, int]` not `Dict`.
@@ -16,33 +16,36 @@ catch but agents get wrong by default.
   project's configured strictness). Don't silence with `# type: ignore` without
   a reason comment.
 
-## Error handling
+## Error handling  [MUST]
 - Never `except:` or `except Exception:` bare — catch the specific exception.
 - Raise specific, named exceptions; define domain exceptions where a layer has
   its own failure modes. Don't leak implementation details (e.g. raw DB errors)
   across a layer boundary.
 - Don't swallow exceptions silently. If you catch and continue, log why.
 
-## Common defaults to avoid
+## Must-avoid defaults  [MUST]
 - No mutable default arguments (`def f(x=[])`); use `None` + assign inside.
+- No `time.sleep()` in tests — control time or mock it.
+
+## Preferred defaults  [PREFER]
 - `pathlib.Path`, not `os.path`.
 - `logging`, not `print()`, for anything that isn't CLI user output.
 - f-strings, not `%` or `.format()`.
-- No `time.sleep()` in tests — control time or mock it.
 - Prefer composition over inheritance. Use `@dataclass` or Pydantic for DTOs.
 
-## Async
+## Async  [MUST]
 - Don't mix blocking I/O into async code paths. No blocking DB/network/file
   calls inside `async def` without offloading (e.g. `asyncio.to_thread`).
 - Don't create event loops manually in library code; accept being awaited.
 
-## Testing
+## Testing  [PREFER]
 - pytest. Test names: `test_{what}_{condition}_{expected}`.
 - Assert specific values, not just "no exception".
 - Mock at system boundaries (external APIs, clock, randomness), not internals.
 - Test pyramid: many fast unit tests, fewer integration tests.
+- Full conventions in `testing.md`.
 
-## Packaging / environment
+## Packaging / environment  [PREFER]
 - `uv` for dependency and environment management; commands go through it.
 - Pin versions in the lockfile, not from memory.
 - Absolute imports, not relative.

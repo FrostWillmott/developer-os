@@ -9,13 +9,23 @@ A single source of truth for code conventions, agent rules, and project scaffold
 
 ```
 templates/
-├── project-template/    ← copy this into a new repo
-│   ├── .claude/rules/   ← drop rule modules here
+├── new-project.sh        ← roll the template + chosen rule modules into a repo
+├── docs/
+│   └── harness-guide.md  ← how to build the optimal harness
+├── project-template/     ← copy this into a new repo
+│   ├── .github/
+│   │   └── workflows/ci.yml   ← lint + type + test on push
+│   ├── .claude/
+│   │   ├── rules/         ← drop rule modules here
+│   │   ├── hooks/         ← lint-on-edit, non-Anthropic endpoint warning
+│   │   ├── skills/        ← on-demand skill files (workflow-scaffolding, audit-diff)
+│   │   └── settings.json
 │   ├── CLAUDE.md
+│   ├── DECISIONS.md
 │   ├── Makefile
 │   ├── .pre-commit-config.yaml
 │   └── ruff.toml
-└── rules-library/       ← canonical rule modules
+└── rules-library/        ← canonical rule modules
     ├── _LEVELS.md
     └── *.md
 ```
@@ -26,10 +36,17 @@ templates/
 
 ### Starting a new project
 
-1. Copy `project-template/` into the new repo root.
-2. Fill in `CLAUDE.md`: project description, active modules, architecture divergences, commands.
-3. Copy the rule modules you need from `rules-library/` into `.claude/rules/`.
-4. Run `make install && make install-hooks`.
+```bash
+./new-project.sh <target-dir> [module ...]   # defaults: python-core testing documentation
+./new-project.sh --list                      # see available modules
+```
+
+Then in `<target-dir>`: fill in the `CLAUDE.md` TODOs, review `.github/workflows/ci.yml`,
+and run `make install && make install-hooks`.
+
+Manual fallback (what the script automates): copy `project-template/` into the repo root,
+copy the rule modules you need from `rules-library/` into `.claude/rules/`, delete
+`_PUT_MODULES_HERE.txt`, then `make install && make install-hooks`.
 
 ### One-time machine setup
 
@@ -40,9 +57,13 @@ import line needed.
 Verify auto-load once: drop a module with a distinctive rule into a test repo's
 `.claude/rules/`, start a session, and ask the agent to state the rule.
 
+See **[docs/harness-guide.md](docs/harness-guide.md)** for a full guide on building the
+optimal harness: enforcement hierarchy, static vs. on-demand context, hooks, and
+day-to-day workflow.
+
 ---
 
-## Rule modules (`rules/rules-library/`)
+## Rule modules (`rules-library/`)
 
 Rule levels — `[MUST]` / `[MUST-UNLESS]` / `[PREFER]` — are defined in `_LEVELS.md`.
 Copy only the modules the project needs; absent file = rule not applied.
@@ -56,7 +77,11 @@ Copy only the modules the project needs; absent file = rule not applied.
 | `postgresql-pgvector.md` | Projects using pgvector |
 | `data-engineering.md` | Pipeline / ETL projects |
 | `clean-architecture.md` | Full layered architecture (opt-in only) |
-| `workflow-scaffolding.md` | Apply at project start to set up tooling |
+| `documentation.md` | Every project — keep `README.md` and `DECISIONS.md` current, unless the project says otherwise |
+| `workflow-scaffolding.md` | Pointer only — canonical content is the `workflow-scaffolding` Skill in `project-template/.claude/skills/` |
+
+Modules support `paths:` YAML frontmatter to load only when Claude works with matching
+files. See [harness-guide.md](docs/harness-guide.md) for examples and the full context model.
 
 ---
 
