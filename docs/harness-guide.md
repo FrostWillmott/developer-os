@@ -181,6 +181,10 @@ Finish by hand in `<target-dir>`:
 3. Review `.claude/settings.json` — `permissions.allow`/`deny` for this project.
 4. `make install && make install-hooks`.
 
+**Manual fallback**, if you'd rather not run the script: copy `project-template/` into the
+repo root, copy the rule modules you need from `rules-library/` into `.claude/rules/`,
+delete `_PUT_MODULES_HERE.txt`, then `make install && make install-hooks`.
+
 ---
 
 ## Dual-review protocol
