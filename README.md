@@ -51,7 +51,7 @@ Verify auto-load once: drop a module with a distinctive rule into a test repo's
 `.claude/rules/`, start a session, and ask the agent to state the rule.
 
 See **[docs/harness-guide.md](docs/harness-guide.md)** for the full guide: enforcement
-hierarchy, context layers, project setup detail and manual fallback, the dual-review
+hierarchy, context layers, project setup detail, the dual-review
 protocol, the provider switcher, and day-to-day workflow.
 
 ---
