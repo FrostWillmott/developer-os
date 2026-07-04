@@ -5,6 +5,14 @@ every commit. Newest entry at the top; see `rules-library/documentation.md`
 for the convention. Don't edit past entries; if a decision is reversed, add a
 new one that supersedes it.
 
+## 2026-07-04 — Manual rollout instructions removed, `new-project.sh` is the sole carrier
+
+Removed the remaining manual rollout duplicates from `CLAUDE.md` ("Starting a new project"
+5-step list) and `docs/harness-guide.md` (the "Manual fallback" paragraph) — `new-project.sh`
+is now the single source of truth for the rollout procedure. This supersedes the 2026-07-02
+restore of the manual fallback (commit `55f3aa1`), which was a precautionary interrupt of an
+in-progress dedup, not a considered decision to keep the manual path documented.
+
 ## 2026-07-02 — Implemented HARNESS_AUDIT.md §7 top-3 recommendations
 
 Following the ROI ranking in `HARNESS_AUDIT.md` §7 (audit contract, enforcement before

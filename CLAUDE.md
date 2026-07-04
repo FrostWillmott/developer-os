@@ -13,11 +13,8 @@ Two deliverables:
 ## How to use this repo
 
 **Starting a new project:**
-1. Copy `project-template/` into the new repo root.
-2. Fill in `project-template/CLAUDE.md`: project description, active modules, architecture divergences, commands.
-3. Copy only the rule modules you need from `rules-library/` into `.claude/rules/` of the new repo.
-4. Delete `project-template/.claude/rules/_PUT_MODULES_HERE.txt`.
-5. In the new repo: `make install && make install-hooks`.
+Run `./new-project.sh <dir> [modules...]` from this repo, then fill in the generated
+`CLAUDE.md`: project description, active modules, architecture divergences, commands.
 
 **Adding or editing a rule module:**
 - Edit or add a file under `rules-library/`. Keep each file focused on one concern.
