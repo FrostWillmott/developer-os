@@ -100,5 +100,6 @@ cat <<EOF
 Done. Next steps in $TARGET_DIR:
   1. Fill in the TODOs in CLAUDE.md (project description, active modules, commands).
   2. Review .github/workflows/ci.yml — add service containers if the project needs them.
-  3. cd $TARGET_DIR && make install && make install-hooks
+  3. Review .claude/settings.json — permissions.allow/deny for this project.
+  4. cd $TARGET_DIR && make install && make install-hooks
 EOF
