@@ -11,6 +11,14 @@ This is the contract for dual review — a second, independent pass over a diff 
 (or some other agent/model) already wrote. Follow the steps in order; don't skip the
 gate even if the diff looks small.
 
+## 0. Same-session gate — did this conversation write the diff?
+
+Before anything else, check your own session context: if any part of the diff under
+audit was generated, edited, or planned earlier in this same conversation, **stop and
+refuse**. Auditing your own output in the same context is a re-read with the same blind
+spots, not a second opinion. Ask the user to open a fresh session (clean terminal,
+explicit `--model`) and run the audit there.
+
 ## 1. Endpoint gate — Anthropic only
 
 Run:
