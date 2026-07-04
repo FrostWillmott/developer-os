@@ -5,6 +5,15 @@ every commit. Newest entry at the top; see `rules-library/documentation.md`
 for the convention. Don't edit past entries; if a decision is reversed, add a
 new one that supersedes it.
 
+## 2026-07-04 — Junie → Claude Code migration complete, PLAN.md removed
+
+The migration plan is fully executed: generate/audit split runs on two Claude Code
+sessions (clean terminal + explicit `--model` for audits, same-session gate in the
+`audit-diff` skill), context7 kept, Snyk left at IDE/CLI level, Junie-specific config
+removed (`.junie/`, `~/.junie/AGENTS.md` — commit `326bc37`). PLAN.md is deleted in
+this commit; the full plan with the reasoning behind the context7/Snyk/generate-audit
+decisions is preserved at `git show 7cf5d46:PLAN.md`.
+
 ## 2026-07-04 — Manual rollout instructions removed, `new-project.sh` is the sole carrier
 
 Removed the remaining manual rollout duplicates from `CLAUDE.md` ("Starting a new project"
