@@ -5,6 +5,28 @@ every commit. Newest entry at the top; see `rules-library/documentation.md`
 for the convention. Don't edit past entries; if a decision is reversed, add a
 new one that supersedes it.
 
+## 2026-08-07 — Repurposed from personal repo to public open-source project
+
+The repo was a personal rules library; it is being published as a general-purpose
+system so that "how do you work with AI?" has a concrete answer. Consequences:
+`README.md` now leads with the rule-level model rather than the directory tree,
+personal references are scrubbed from prose (`DECISIONS.md` keeps its historical
+entries — it is append-only), `CONTRIBUTING.md` and `SECURITY.md` define the scope
+for outside contributors, and `LICENSE` carries a real copyright holder.
+
+Two files were purged from git history rather than merely deleted, because deletion
+leaves them permanently clonable once the repo is public:
+`docs/Google_harness_article.pdf` (a third-party article — 9.97 MB of a 10 MB repo,
+redistributing it under our MIT licence is not ours to do) and `HARNESS_AUDIT.md`
+(personal workflow telemetry: prompt counts, private project names, home paths).
+Done while the repo was still private with zero forks, when a history rewrite costs
+nothing; the audit's *conclusions* already live in the entries below, so only the
+raw personal data is lost.
+
+`.idea/` moved from `.gitignore` to `.git/info/exclude` per this repo's own rule that
+personal tool files stay out of shared ignore files. Note the trade-off: that file is
+local-only, so contributors do not inherit it.
+
 ## 2026-07-04 — Junie → Claude Code migration complete, PLAN.md removed
 
 The migration plan is fully executed: generate/audit split runs on two Claude Code
@@ -41,7 +63,7 @@ expansion, dedupe + automate rollout), in that order:
 - Deduplicated the module index (now canonical in `README.md` only), `AGENTS.md` (now a
   one-line pointer to `CLAUDE.md`), and `workflow-scaffolding.md` (now a pointer to the
   Skill); trimmed `.junie/AGENTS.md` to remove phantom content the audit flagged
-  (FrostWillmott, Startpages, `archive/`, a stale "Recent Discoveries" section, and Clean
+  (personal repos, Startpages, `archive/`, a stale "Recent Discoveries" section, and Clean
   Architecture described as the default pattern rather than the opt-in module it is).
 - Translated `docs/harness-guide.md` to English and extended it to cover project setup via
   the new script, the dual-review protocol, and the provider switcher — the machine-config

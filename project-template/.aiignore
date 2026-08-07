@@ -1,4 +1,5 @@
 # AI tool ignore file — files and directories AI coding assistants should not read.
+# This is the project-template copy; adjust for your project.
 
 # Dependencies and virtual environments
 .venv/

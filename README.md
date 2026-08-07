@@ -1,65 +1,75 @@
-# Templates (Developer OS)
+# Developer OS
 
-Personal rules library and project skeleton for AI-assisted Python development.
-A single source of truth for code conventions, agent rules, and project scaffolding.
+**A rule-level system for AI-assisted development.**
+
+When someone asks "how do you work with AI?" — most candidates don't have an answer.
+This is a ready-made, battle-tested one.
+
+---
+
+## The rule-level model
+
+Every convention in this system is tagged with one of three levels. The level tells
+the AI agent how much latitude it has — no guessing from tone:
+
+| Level | Meaning | Example |
+|---|---|---|
+| `[MUST]` | Non-negotiable. Never relaxed for convenience. | "No blocking call inside `async def` without offloading." |
+| `[MUST-UNLESS]` | The default is mandatory, but a documented technical reason permits a local deviation. | Strict typing — default on, `# type: ignore[arg-type] # reason` allowed. |
+| `[PREFER]` | The agent follows by default; project context may override. | "Prefer `pathlib` over `os.path`." |
+
+**When project `CLAUDE.md` conflicts with a `[PREFER]` rule, the project wins.**
+When it conflicts with a `[MUST]`, the agent surfaces the conflict rather than
+quietly following either.
+
+See [`rules-library/_LEVELS.md`](rules-library/_LEVELS.md) for the full definition.
+
+---
+
+## Quick start
+
+```bash
+./new-project.sh <target-dir> [module ...]
+```
+
+Copies the project skeleton (`project-template/`) and the rule modules you pick
+from `rules-library/` into a new or existing repo. Never overwrites files already
+there — safe to re-run.
+
+```bash
+./new-project.sh my-project python-core testing documentation
+./new-project.sh --list   # see available modules
+```
+
+Then fill in the TODOs in the generated `CLAUDE.md` and run `make install`.
 
 ---
 
 ## Structure
 
 ```
-templates/
-├── new-project.sh        ← roll the template + chosen rule modules into a repo
+developer-os/
+├── new-project.sh           ← roll the template + chosen rule modules into a repo
 ├── docs/
-│   └── harness-guide.md  ← how to build the optimal harness
-├── project-template/     ← copy this into a new repo
-│   ├── .github/
-│   │   └── workflows/ci.yml   ← lint + type + test on push
-│   ├── .claude/
-│   │   ├── rules/         ← drop rule modules here
-│   │   ├── hooks/         ← lint-on-edit, non-Anthropic endpoint warning
-│   │   ├── skills/        ← on-demand skill files (workflow-scaffolding, audit-diff)
-│   │   └── settings.json
-│   ├── CLAUDE.md
-│   ├── DECISIONS.md
-│   ├── Makefile
+│   └── harness-guide.md     ← how to build an effective AI harness
+├── project-template/        ← starter kit copied into new repos
+│   ├── .claude/             ← rules/, hooks/, skills/, settings.json
+│   ├── .github/workflows/   ← CI: lint + type + test on push
+│   ├── Makefile             ← make install / check / fix / test
+│   ├── ruff.toml            ← standalone linter config
 │   ├── .pre-commit-config.yaml
-│   └── ruff.toml
-└── rules-library/        ← canonical rule modules
-    ├── _LEVELS.md
-    └── *.md
+│   ├── CLAUDE.md            ← project-level agent guidance (TODOs to fill)
+│   └── DECISIONS.md         ← append-only decision log
+└── rules-library/           ← canonical rule modules
+    ├── _LEVELS.md           ← the rule-level model
+    └── *.md                 ← one module per concern
 ```
 
 ---
 
-## How to use
+## Rule modules
 
-### Starting a new project
-
-```bash
-./new-project.sh <target-dir> [module ...]   # defaults: python-core testing documentation
-./new-project.sh --list                      # see available modules
-```
-
-### One-time machine setup
-
-Put `~/.claude/CLAUDE.md` with global agent behaviour (behavioural boundaries, comment
-style). `.claude/rules/` files in each repo are picked up automatically alongside it — no
-import line needed.
-
-Verify auto-load once: drop a module with a distinctive rule into a test repo's
-`.claude/rules/`, start a session, and ask the agent to state the rule.
-
-See **[docs/harness-guide.md](docs/harness-guide.md)** for the full guide: enforcement
-hierarchy, context layers, project setup detail, the dual-review
-protocol, the provider switcher, and day-to-day workflow.
-
----
-
-## Rule modules (`rules-library/`)
-
-Rule levels — `[MUST]` / `[MUST-UNLESS]` / `[PREFER]` — are defined in `_LEVELS.md`.
-Copy only the modules the project needs; absent file = rule not applied.
+Copy only the modules the project needs. Absent file = rule not applied.
 
 | Module | When to apply |
 |---|---|
@@ -70,17 +80,39 @@ Copy only the modules the project needs; absent file = rule not applied.
 | `postgresql-pgvector.md` | Projects using pgvector |
 | `data-engineering.md` | Pipeline / ETL projects |
 | `clean-architecture.md` | Full layered architecture (opt-in only) |
-| `documentation.md` | Every project — keep `README.md` and `DECISIONS.md` current, unless the project says otherwise |
-| `workflow-scaffolding.md` | Pointer only — canonical content is the `workflow-scaffolding` Skill in `project-template/.claude/skills/` |
+| `documentation.md` | Every project — keep `README.md` and `DECISIONS.md` current |
+| `workflow-scaffolding.md` | Pointer to the `workflow-scaffolding` Skill in the template |
 
-Modules support `paths:` YAML frontmatter to load only when Claude works with matching
-files. See [harness-guide.md](docs/harness-guide.md) for examples and the full context model.
+Modules support `paths:` YAML frontmatter to load only when the agent works with
+matching files. See [`docs/harness-guide.md`](docs/harness-guide.md) for details.
 
 ---
 
-## Stack (core)
+## Philosophy and deeper dive
+
+The [`docs/harness-guide.md`](docs/harness-guide.md) covers:
+
+- **Enforcement hierarchy** — CI > pre-commit > Claude Code hooks > rules > prose
+- **Context layers** — static context, path-scoped rules, on-demand Skills
+- **Dual-review protocol** — why a second, independent pass catches what a single pass misses
+- **Provider-agnostic design** — rules work regardless of which model generates the code
+- **Token economics** — where to put each kind of content so you don't pay for it every session
+
+---
+
+## Stack (what the rules assume)
 
 - **Language:** Python 3.12+
 - **Framework:** FastAPI
 - **DB:** PostgreSQL + pgvector
 - **Tooling:** uv, ruff, mypy, pytest, Docker
+
+---
+
+## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## License
+
+MIT — see [`LICENSE`](LICENSE).
