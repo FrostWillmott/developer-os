@@ -27,9 +27,24 @@ raw personal data is lost.
 personal tool files stay out of shared ignore files. Note the trade-off: that file is
 local-only, so contributors do not inherit it.
 
+Two further paths were purged in later passes, once a full audit of every blob ever in
+the history was run rather than only the staged diff: `startpage/` (a bookmark page
+whose weather link pinned a home city) and `archive/` (a VS Code config containing an
+absolute `/Users/…` path). The history was rewritten three times in total.
+
+The commit author email was deliberately **not** rewritten. It is already published on
+the GitHub profile, so rewriting 26 commits to hide it would have achieved nothing;
+should that profile field ever be cleared, the history would need the same treatment
+to make it count.
+
+A force-push does not remove the old objects from GitHub — they stay fetchable by SHA,
+and Support only intervenes for sensitive data that credential rotation cannot fix.
+The repo was therefore deleted and re-created from the rewritten history. That is what
+actually removed them, verified anonymously from outside afterwards.
+
 The GitHub repo was renamed `templates` → `developer-os` to match what the README now
-describes; the old name survives only as a GitHub redirect, so any external link
-predating this entry points at `FrostWillmott/templates`.
+describes. The delete-and-recreate also dropped the redirect from the old name, so any
+external link predating this entry is dead rather than forwarded.
 
 Consequence of the rewrite: every commit SHA below this entry is from the pre-rewrite
 history and no longer resolves (`326bc37`, `55f3aa1`, `7cf5d46`, and the `git show`
