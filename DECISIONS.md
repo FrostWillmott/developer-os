@@ -31,6 +31,15 @@ The GitHub repo was renamed `templates` → `developer-os` to match what the REA
 describes; the old name survives only as a GitHub redirect, so any external link
 predating this entry points at `FrostWillmott/templates`.
 
+Consequence of the rewrite: every commit SHA below this entry is from the pre-rewrite
+history and no longer resolves (`326bc37`, `55f3aa1`, `7cf5d46`, and the `git show`
+invocation that depends on one). Those entries are left untouched — this log is
+append-only — but read their SHAs as historical labels, not as fetchable objects.
+
+The Google whitepaper that informed `docs/harness-guide.md` is now cited as a link
+rather than vendored as a PDF. Attribution is not a licence: linking is what makes the
+reference legitimate, and a disclaimer next to a redistributed copy would not have.
+
 ## 2026-07-04 — Junie → Claude Code migration complete, PLAN.md removed
 
 The migration plan is fully executed: generate/audit split runs on two Claude Code

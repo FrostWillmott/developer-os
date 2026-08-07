@@ -2,10 +2,14 @@
 
 A practical guide to building an effective AI harness for a Claude Code–based workflow.
 
-Sources: [Building effective agents](https://www.anthropic.com/research/building-effective-agents) ·
+Sources: [The New SDLC With Vibe Coding](https://www.kaggle.com/whitepaper-the-new-SDLC-with-vibe-coding)
+(Osmani, Saboo, Kartakis — Google; the `Agent = Model + Harness` framing this guide builds on) ·
+[Building effective agents](https://www.anthropic.com/research/building-effective-agents) ·
 [Claude Code Memory](https://code.claude.com/docs/en/memory) ·
 [Claude Code Skills](https://code.claude.com/docs/en/skills) ·
 [Claude Code Hooks](https://code.claude.com/docs/en/hooks)
+
+Sources are linked, never vendored — this repo redistributes no third-party material.
 
 ---
 
