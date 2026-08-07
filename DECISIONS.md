@@ -27,6 +27,10 @@ raw personal data is lost.
 personal tool files stay out of shared ignore files. Note the trade-off: that file is
 local-only, so contributors do not inherit it.
 
+The GitHub repo was renamed `templates` → `developer-os` to match what the README now
+describes; the old name survives only as a GitHub redirect, so any external link
+predating this entry points at `FrostWillmott/templates`.
+
 ## 2026-07-04 — Junie → Claude Code migration complete, PLAN.md removed
 
 The migration plan is fully executed: generate/audit split runs on two Claude Code
