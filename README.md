@@ -1,9 +1,10 @@
 # Developer OS
 
-**A rule-level system for AI-assisted development.**
+**A modular rule library and project template for agentic development.**
 
-When someone asks "how do you work with AI?" — most candidates don't have an answer.
-This is a ready-made, battle-tested one.
+A single source of truth for AI agent rules and project scaffolding: canonical
+rule modules tagged by enforcement level, plus a starter kit that wires them
+into a new repo's `.claude/` config, CI, and pre-commit.
 
 ---
 
