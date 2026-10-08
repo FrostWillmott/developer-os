@@ -13,7 +13,8 @@ library: four new modules (`ci-pipeline`, `config-hygiene`, `frontend-vue`,
 and `testing`. Those additions now live here, so the rule changes made in that
 project reach every other project too. Projects keep byte-identical copies in
 `.claude/rules/`, because Claude Code auto-loads only files that are actually
-there. A copy is changed by editing the library and re-copying, never in place.
+there. A copy is changed by editing the library and re-copying with a plain `cp`
+(`new-project.sh` never overwrites an existing file), never in place.
 `testing.md` coverage moves from `[PREFER]` to `[MUST-UNLESS]` with an enforced
 threshold, and tests are split into `unit/`, `integration/` and `e2e/`.
 

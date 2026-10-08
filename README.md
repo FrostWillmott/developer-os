@@ -108,7 +108,7 @@ The [`docs/harness-guide.md`](docs/harness-guide.md) covers:
 ## Stack (what the rules assume)
 
 - **Language:** Python 3.12+
-- **Framework:** FastAPI
+- **Framework:** FastAPI; Vue 3 + TypeScript for a frontend (`frontend-vue.md`)
 - **DB:** PostgreSQL + pgvector
 - **Tooling:** uv, ruff, mypy, pytest, Docker
 
