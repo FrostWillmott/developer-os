@@ -82,6 +82,10 @@ Copy only the modules the project needs. Absent file = rule not applied.
 | `data-engineering.md` | Pipeline / ETL projects |
 | `clean-architecture.md` | Full layered architecture (opt-in only) |
 | `documentation.md` | Every project — keep `README.md` and `DECISIONS.md` current |
+| `config-hygiene.md` | Services that read configuration from the environment |
+| `ci-pipeline.md` | Any repo with a CI workflow — a pushed commit is confirmed green by command |
+| `transactional-web.md` | Multi-user apps on shared state: concurrency, idempotency, outbox, live updates |
+| `frontend-vue.md` | A Vue 3 + TypeScript frontend |
 | `workflow-scaffolding.md` | Pointer to the `workflow-scaffolding` Skill in the template |
 
 Modules support `paths:` YAML frontmatter to load only when the agent works with
@@ -104,7 +108,7 @@ The [`docs/harness-guide.md`](docs/harness-guide.md) covers:
 ## Stack (what the rules assume)
 
 - **Language:** Python 3.12+
-- **Framework:** FastAPI
+- **Framework:** FastAPI; Vue 3 + TypeScript for a frontend (`frontend-vue.md`)
 - **DB:** PostgreSQL + pgvector
 - **Tooling:** uv, ruff, mypy, pytest, Docker
 

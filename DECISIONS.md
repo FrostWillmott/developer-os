@@ -5,6 +5,19 @@ every commit. Newest entry at the top; see `rules-library/documentation.md`
 for the convention. Don't edit past entries; if a decision is reversed, add a
 new one that supersedes it.
 
+## 2026-10-08 — Downstream rule changes flow back here; projects carry exact copies
+
+A downstream project had grown its copies of the modules well past the
+library: four new modules (`ci-pipeline`, `config-hygiene`, `frontend-vue`,
+`transactional-web`) and additions to `_LEVELS`, `documentation`, `python-core`
+and `testing`. Those additions now live here, so the rule changes made in that
+project reach every other project too. Projects keep byte-identical copies in
+`.claude/rules/`, because Claude Code auto-loads only files that are actually
+there. A copy is changed by editing the library and re-copying with a plain `cp`
+(`new-project.sh` never overwrites an existing file), never in place.
+`testing.md` coverage moves from `[PREFER]` to `[MUST-UNLESS]` with an enforced
+threshold, and tests are split into `unit/`, `integration/` and `e2e/`.
+
 ## 2026-08-07 — Repurposed from personal repo to public open-source project
 
 The repo was a personal rules library; it is being published as a general-purpose
