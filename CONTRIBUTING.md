@@ -30,6 +30,7 @@ or changing an existing one:
 2. A PR with the change. For rule modules, the PR should show the diff to the
    relevant `.md` file in `rules-library/`.
 3. If you're adding a new module, update the module table in [`README.md`](README.md).
+4. Run `make check` (needs [uv](https://docs.astral.sh/uv/)) — CI runs the same command on the PR.
 
 ## Style
 

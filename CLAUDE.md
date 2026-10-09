@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Purpose
 
-This repo is a "Developer OS" — a single source of truth for AI agent rules and project scaffolding for Python projects. It is not a runnable application; there are no tests or services here.
+This repo is a "Developer OS" — a single source of truth for AI agent rules and project scaffolding for Python projects. It is not a runnable application and has no services. `make check` is the verify command (shellcheck, actionlint, and a smoke test of `new-project.sh`); CI runs it on every PR.
 
 Two deliverables:
 - **`rules-library/`** — canonical rule modules for Claude Code. Each `.md` file is a self-contained convention set for a specific concern (Python, FastAPI, testing, etc.). Rule levels (`[MUST]`, `[MUST-UNLESS]`, `[PREFER]`) are defined in `_LEVELS.md`.
