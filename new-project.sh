@@ -63,6 +63,13 @@ while IFS= read -r -d '' src; do
     echo "warning: $rel already exists in target — skipping" >&2
     continue
   fi
+  # A new ruff.toml would silently override an existing ruff config rather
+  # than add to it — see rules-library/inherited-codebases.md.
+  if [[ "$rel" == "ruff.toml" ]] && { [[ -e "$TARGET_DIR/.ruff.toml" ]] ||
+      grep -qs '^\[tool\.ruff' "$TARGET_DIR/pyproject.toml"; }; then
+    echo "warning: target already configures ruff — skipping ruff.toml" >&2
+    continue
+  fi
   mkdir -p "$(dirname "$dest")"
   cp "$src" "$dest"
 done < <(find "$TEMPLATE_DIR" -type f \
