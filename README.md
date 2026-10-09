@@ -51,6 +51,8 @@ Then fill in the TODOs in the generated `CLAUDE.md` and run `make install`.
 ```
 developer-os/
 ├── new-project.sh           ← roll the template + chosen rule modules into a repo
+├── Makefile                 ← make check: this repo's own lint + smoke test (CI runs it)
+├── scripts/smoke-test.sh    ← exercises new-project.sh against throwaway targets
 ├── docs/
 │   └── harness-guide.md     ← how to build an effective AI harness
 ├── project-template/        ← starter kit copied into new repos
