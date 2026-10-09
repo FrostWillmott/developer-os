@@ -86,6 +86,7 @@ Copy only the modules the project needs. Absent file = rule not applied.
 | `ci-pipeline.md` | Any repo with a CI workflow — a pushed commit is confirmed green by command |
 | `transactional-web.md` | Multi-user apps on shared state: concurrency, idempotency, outbox, live updates |
 | `frontend-vue.md` | A Vue 3 + TypeScript frontend |
+| `inherited-codebases.md` | Forks, vendored or legacy code — conventions set by someone else |
 | `workflow-scaffolding.md` | Pointer to the `workflow-scaffolding` Skill in the template |
 
 Modules support `paths:` YAML frontmatter to load only when the agent works with
