@@ -23,7 +23,9 @@ eventually be skipped.
 
 1. **Formatter + linter** — for Python: create `ruff.toml` in root (separate from
    `pyproject.toml` so it versions independently). Use `select` (not `extend-select`)
-   and set `target-version` explicitly.
+   and set `target-version` explicitly. If ruff is already configured (`[tool.ruff]`
+   in `pyproject.toml`, `.ruff.toml`), extend that instead — a new `ruff.toml`
+   silently overrides it (see `inherited-codebases.md`).
 
 2. **Type checker** — for Python: `mypy` with `strict = true` in `pyproject.toml`
    under `[tool.mypy]`.

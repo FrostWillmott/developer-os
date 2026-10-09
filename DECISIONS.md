@@ -5,6 +5,23 @@ every commit. Newest entry at the top; see `rules-library/documentation.md`
 for the convention. Don't edit past entries; if a decision is reversed, add a
 new one that supersedes it.
 
+## 2026-10-09 — `inherited-codebases.md` added: find the existing mechanism first
+
+Two incidents of the same shape: a harness default (standalone `ruff.toml`,
+`uv.lock`) dropped into a repo that already did that job another way, silently
+shadowing `[tool.ruff]` in one case and pinning nothing CI installs in the other.
+Neither review nor tests caught them, so the module makes the checks mechanical
+(locate the existing mechanism, name the lock's consumer, count the preset's
+findings on inherited code) rather than relying on judgement. Kept as an opt-in
+module: in a greenfield repo the template's defaults are the existing mechanism.
+
+The harness itself produced the first incident, so it was fixed at the source:
+`new-project.sh` no longer copies `ruff.toml` into a target that already
+configures ruff (`[tool.ruff]` or `.ruff.toml`) — "never overwrites" did not
+cover a new file that shadows an old one — and the `workflow-scaffolding` skill
+and the global `~/.claude/CLAUDE.md` rule now say to extend an existing config
+rather than create `ruff.toml` unconditionally.
+
 ## 2026-10-08 — Downstream rule changes flow back here; projects carry exact copies
 
 A downstream project had grown its copies of the modules well past the
